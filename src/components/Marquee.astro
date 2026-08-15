@@ -1,5 +1,6 @@
 ---
 const items = Astro.props.items ?? ['Unity', 'C#', 'Movement', '3C'];
 const line = items.join(' · ') + ' · ';
+const repeats = 8;
 ---
-<div class="marquee"><div class="marquee__in"><span>{line}</span><span>{line}</span></div></div>
+<div class="marquee"><div class="marquee__in">{Array.from({ length: repeats }).map(() => <span>{line}</span>)}</div></div>
