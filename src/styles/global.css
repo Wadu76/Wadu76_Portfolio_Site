@@ -55,7 +55,7 @@ button:active, .pressable:active { transform: scale(0.97); }
 
 /* 跑马灯 */
 .marquee { margin-top: 28px; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--mustard); overflow: hidden; }
-.marquee__in { display: flex; width: max-content; animation: mq 22s linear infinite; }
+.marquee__in { display: flex; width: max-content; animation: mq 30s linear infinite; }
 .marquee span { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
   font-size: 14px; padding: 8px 40px 8px 0; white-space: nowrap; }
 @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
