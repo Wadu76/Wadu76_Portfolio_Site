@@ -1,0 +1,13 @@
+---
+const { posts, showAll = false } = Astro.props;
+const fmtDate = (d) => `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+---
+{posts.length === 0 && <p style="color:var(--cream);opacity:.7">暂无日志，去 content/blog 加一篇吧。</p>}
+{posts.map((post) => (
+  <a class="logitem" href={`/blog/${post.id}/`}>
+    <span class="logitem__date">{fmtDate(post.data.date)}</span>
+    <span class="logitem__title">{post.data.title}</span>
+    <span class="logitem__cat">{post.data.category}</span>
+  </a>
+))}
+{showAll && <a class="logmore" href="/blog">全部日志 →</a>}

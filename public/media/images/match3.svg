@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400">
+  <rect width="640" height="400" fill="#7d2b32"/>
+  <text x="32" y="70" font-family="monospace" font-size="20" fill="#f8f0e0">02 / match-3</text>
+  <g>
+    <rect x="220" y="120" width="64" height="64" rx="8" fill="#f2c14e"/>
+    <rect x="292" y="120" width="64" height="64" rx="8" fill="#f2c14e"/>
+    <rect x="364" y="120" width="64" height="64" rx="8" fill="#f2c14e"/>
+    <rect x="220" y="192" width="64" height="64" rx="8" fill="#f8f0e0" opacity=".6"/>
+    <rect x="292" y="192" width="64" height="64" rx="8" fill="#f8f0e0" opacity=".6"/>
+    <rect x="364" y="192" width="64" height="64" rx="8" fill="#f8f0e0" opacity=".6"/>
+  </g>
+</svg>

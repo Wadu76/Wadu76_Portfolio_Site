@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import LogCard from '../components/LogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date - a.data.date);
+---
+<BaseLayout>
+  <Hero tag="Unity 游戏开发者 · Movement / 3C"
+        title="WADU76<br>作品集"
+        desc="Unity 游戏客户端开发者，方向是平台跳跃与移动手感。这里收录我的项目和开发日志。" />
+  <Marquee />
+
+  <section class="section container" style="padding-top:clamp(40px,7vh,64px)">
+    <div class="section__head"><h2>Projects.</h2><em>featured</em></div>
+    <ProjectGrid />
+  </section>
+
+  <section class="section section--dark container" style="max-width:none">
+    <div class="container">
+      <div class="section__head"><h2>开发日志.</h2><em>最近更新</em></div>
+      <LogCard posts={posts.slice(0, 4)} showAll />
+    </div>
+  </section>
+
+  <section class="section section--oxblood container" style="max-width:none">
+    <div class="container">
+      <div class="section__head"><h2>About.</h2><em>简介</em></div>
+      <p style="max-width:540px">华中科技大学 CS · 2027 届 · 方向：游戏客户端 / Movement·3C。</p>
+    </div>
+  </section>
+</BaseLayout>

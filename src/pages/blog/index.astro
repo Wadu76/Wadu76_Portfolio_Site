@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LogCard from '../../components/LogCard.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date - a.data.date);
+---
+<BaseLayout title="开发日志 · WADU76 作品集">
+  <section class="section section--dark container" style="max-width:none;min-height:60vh">
+    <div class="container">
+      <div class="section__head"><h2>开发日志.</h2><em>全部</em></div>
+      <LogCard posts={posts} />
+    </div>
+  </section>
+</BaseLayout>

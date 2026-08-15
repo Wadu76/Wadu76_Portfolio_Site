@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400">
+  <rect width="640" height="400" fill="#2e1f2d"/>
+  <text x="32" y="70" font-family="monospace" font-size="20" fill="#f2c14e">01 / basic_movement</text>
+  <rect x="420" y="120" width="90" height="90" rx="8" fill="#f2c14e"/>
+  <rect x="520" y="180" width="90" height="90" rx="8" fill="#f2c14e"/>
+  <rect x="140" y="260" width="360" height="14" fill="#f2c14e"/>
+</svg>

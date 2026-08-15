@@ -1,0 +1,13 @@
+---
+const links = [
+  { href: '/projects', label: '项目' },
+  { href: '/blog', label: '日志' },
+  { href: '/about', label: '关于' },
+];
+---
+<nav class="nav container">
+  <a class="nav__brand" href="/">WADU76</a>
+  <div class="nav__links">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </div>
+</nav>

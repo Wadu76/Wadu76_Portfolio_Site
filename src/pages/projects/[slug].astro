@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((p) => ({ params: { slug: p.id }, props: { project: p } }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<BaseLayout title={`${project.data.title} · WADU76 作品集`}>
+  <article class="prose container">
+    <h1>{project.data.title}</h1>
+    <div class="meta">{project.data.subtitle ?? ''}</div>
+    {project.data.video && <video controls preload="metadata" poster={project.data.cover} src={project.data.video}></video>}
+    {!project.data.video && project.data.cover && <img class="cover" src={project.data.cover} alt={project.data.title} />}
+    {project.data.gallery.length > 0 && (
+      <div class="gallery">{project.data.gallery.map((src) => <img src={src} loading="lazy" />)}</div>
+    )}
+    <div class="pcard__tags" style="margin:18px 0">{project.data.tech.map((t) => <span>{t}</span>)}</div>
+    <Content />
+  </article>
+</BaseLayout>

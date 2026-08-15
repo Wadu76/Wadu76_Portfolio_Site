@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400">
+  <rect width="640" height="400" fill="#3d2b3f"/>
+  <text x="32" y="70" font-family="monospace" font-size="20" fill="#f2c14e">03 / hookshot</text>
+  <circle cx="520" cy="100" r="14" fill="#f2c14e"/>
+  <path d="M520 114 L360 300 L300 240 L100 340" stroke="#f2c14e" stroke-width="8" fill="none" stroke-linecap="round"/>
+</svg>

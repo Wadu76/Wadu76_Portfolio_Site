@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const skills = ['Unity', 'C#', '游戏玩法', 'Movement / 3C', '2D 平台', '三消', '钩锁'];
+---
+<BaseLayout title="关于 · WADU76 作品集">
+  <section class="section container about-grid">
+    <div>
+      <div class="section__head"><h2>About.</h2><em>关于我</em></div>
+      <p style="max-width:560px">华中科技大学 CS · 2027 届。方向：游戏客户端 / Movement·3C。这里用作品集和开发日志记录我的游戏开发学习。</p>
+    </div>
+    <div>
+      <div class="section__head"><h2>技能.</h2><em>skills</em></div>
+      <div>{skills.map((s) => <span class="about-skill">{s}</span>)}</div>
+    </div>
+  </section>
+</BaseLayout>

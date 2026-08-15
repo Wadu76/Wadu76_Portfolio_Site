@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+const { limit = 0 } = Astro.props;
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.date - a.data.date)
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const shown = limit > 0 ? projects.slice(0, limit) : projects;
+const count = shown.length;
+const gridClass = count === 1 ? 'pg pg--single' : count === 2 ? 'pg pg--duo' : count === 3 ? 'pg pg--bento' : 'pg pg--grid';
+---
+<div class={gridClass}>
+  {shown.map((p, i) => (
+    <a class="pcard" href={`/projects/${p.id}/`}>
+      <div class={`pcard__img pcard__img--${(i % 3) + 1}`}>
+        {p.data.cover && <img src={p.data.cover} alt={p.data.title} loading="lazy" />}
+        <i class="pcard__no">0{i + 1}</i>
+      </div>
+      <div class="pcard__body">
+        <h3>{p.data.title}</h3>
+        {p.data.subtitle && <p>{p.data.subtitle}</p>}
+        <div class="pcard__tags">{p.data.tech.map((t) => <span>{t}</span>)}</div>
+      </div>
+    </a>
+  ))}
+</div>
