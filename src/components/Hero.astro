@@ -3,6 +3,6 @@ const props = Astro.props;
 ---
 <section class="hero">
   <div class="hero__tag">{props.tag}</div>
-  <h1>{props.title}</h1>
+  <h1>{props.title.map((line) => <span>{line}</span>)}</h1>
   <p>{props.desc}</p>
 </section>

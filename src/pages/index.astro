@@ -9,9 +9,9 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.date - a.data.date);
 ---
 <BaseLayout>
-  <Hero tag="Unity 游戏开发者 · Movement / 3C"
-        title="WADU76<br>作品集"
-        desc="Unity 游戏客户端开发者，方向是平台跳跃与移动手感。这里收录我的项目和开发日志。" />
+  <Hero tag="Unity 游戏客户端开发者"
+        title={['WADU76', '作品集']}
+        desc="方向：Movement / 3C。这里收录我的游戏项目与开发日志。" />
   <Marquee />
 
   <section class="section container" style="padding-top:clamp(40px,7vh,64px)">

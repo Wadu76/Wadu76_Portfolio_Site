@@ -50,6 +50,7 @@ button:active, .pressable:active { transform: scale(0.97); }
 .hero { text-align: center; padding: clamp(56px, 12vh, 110px) var(--gutter) 20px; }
 .hero__tag { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--oxblood); }
 .hero h1 { font-size: clamp(56px, 11vw, 120px); line-height: 0.78; margin: 16px 0 12px; }
+.hero h1 span { display: block; }
 .hero p { max-width: 460px; margin: 0 auto; color: var(--muted); }
 
 /* 跑马灯 */
