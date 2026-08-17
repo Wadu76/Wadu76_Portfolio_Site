@@ -1,6 +1,6 @@
 ---
 const { posts, showAll = false } = Astro.props;
-const fmtDate = (d) => `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const fmtDate = (d) => d ? `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` : '·';
 ---
 {posts.length === 0 && <p style="color:var(--cream);opacity:.7">暂无日志，去 content/blog 加一篇吧。</p>}
 {posts.map((post) => (

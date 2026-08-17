@@ -6,7 +6,8 @@ import ProjectGrid from '../components/ProjectGrid.astro';
 import LogCard from '../components/LogCard.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.date - a.data.date);
+const ts = (d) => d ? d.getTime() : 0;
+const posts = (await getCollection('blog')).sort((a, b) => ts(b.data.date) - ts(a.data.date));
 ---
 <BaseLayout>
   <Hero title={['WADU76 作品集']}

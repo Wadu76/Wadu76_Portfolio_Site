@@ -7,12 +7,12 @@ export async function getStaticPaths() {
 }
 const { post } = Astro.props;
 const { Content } = await render(post);
-const fmtDate = (d) => d.toISOString().slice(0, 10);
+const fmtDate = (d) => d ? d.toISOString().slice(0, 10) : '';
 ---
 <BaseLayout title={`${post.data.title} · WADU76 作品集`}>
   <article class="prose container" style="padding-top:64px">
     <h1>{post.data.title}</h1>
-    <div class="meta">{fmtDate(post.data.date)} · {post.data.category}</div>
+    <div class="meta">{post.data.date ? `${fmtDate(post.data.date)} · ` : ''}{post.data.category}</div>
     {post.data.cover && <img class="cover" src={post.data.cover} alt={post.data.title} />}
     <Content />
   </article>

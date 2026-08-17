@@ -7,7 +7,7 @@ npm install
 npm run dev
 
 ## 更新内容（实时更新的方式）
-1. 写日志：在 `src/content/blog/` 新建 `.md`（含 frontmatter：title/date/category）
+1. 写日志：在 `src/content/blog/` 新建 `.md`（frontmatter：title/category；`date` 可选，不写就不显示日期，无日期的排列表尾）
 2. 写项目：在 `src/content/projects/` 新建 `.md`（title/subtitle/date/tech/cover/gallery/video）
 3. 图片：丢进 `public/media/images/`；视频（小片段）丢进 `public/media/videos/`
 4. 双击 `update.bat` 自动提交推送（或手动 `git add -A && git commit -m "add post" && git push`）
