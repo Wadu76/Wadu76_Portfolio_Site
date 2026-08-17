@@ -4,7 +4,7 @@ date: 2026-08-17
 category: unity
 ---
 
-# 土狼时间与输入缓冲:来历、原理与实现
+
 
 `basic_movement` 是 Unity 2022.3 的 2D 平台跳跃 demo。这篇记录土狼时间(Coyote Time)与输入缓冲(Input Buffer)的来历、原理、实现,以及实现后暴露出的三个动画问题。
 
