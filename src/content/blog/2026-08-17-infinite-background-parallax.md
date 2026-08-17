@@ -4,11 +4,9 @@ date: 2026-07-17
 category: unity
 ---
 
-# 视差滚动与无限循环背景
-
 本人在开发的 2D 平台跳跃 demo。这篇记录视差滚动与无限循环背景的原理、实现,以及实现中遇到的问题。
 
-![最终效果](/media/images/blog/2026-08-17-infinite-background-parallax/最终效果图.gif)
+
 
 ## 来历:两个概念从哪来
 
@@ -26,6 +24,7 @@ category: unity
 
 2D 视差的 `speed` 系数,就是在模拟这个"1 ÷ 深度"——它本质上是这一层的**相对深度**。`speed = 1` 表示层和镜头完全同步(相当于贴脸);`speed = 0.2` 表示这一层大约在 5 倍远的地方(1 ÷ 0.2)。理解了这一点,调参就有了依据:**层之间要拉开差距,是因为深度本身要拉开差距**。如果所有层系数都挤在 0.8 ~ 0.9,等于所有东西都处在同一个深度,自然没有层次感。
 
+如下是设置三层不同速体现出来的视差效果：
 ![视差演示](/media/images/blog/2026-08-17-infinite-background-parallax/视差演示图.gif)
 
 ## 原理:无限循环的数学
@@ -38,6 +37,8 @@ category: unity
 
 无缝是前提:如果图片左右边缘在视觉上不连续(比如左右各剩半截天空),那么每张图边界都会出现一条明显的缝,回卷算法再正确也盖不住。
 
+如下是本实现方法的具体体现gif图
+![无限背景移动](/media/images/blog/2026-08-17-infinite-background-parallax/无限背景移动图.gif)
 ## 实现
 
 ### 视差(Parallax.cs)
@@ -109,7 +110,7 @@ public class BackGoundScroller : MonoBehaviour
 
 `bgWidth` 从 `SpriteRenderer.bounds` 读取,不依赖硬编码。
 
-![无限背景移动](/media/images/blog/2026-08-17-infinite-background-parallax/无限背景移动图.gif)
+
 
 ## 遇到的问题
 
@@ -170,3 +171,6 @@ public class CameraFollow : MonoBehaviour
 ## 遗留问题
 
 到达关卡尽头时,背景仍会继续循环,产生"关卡结束但背景还在"的突兀感。无限循环背景是无缝图,不关心关卡边界;图是无限的,关卡是有限的,两者结构上不对应。需要额外的收尾处理(关卡边缘的结束背景或遮罩),或把关卡边界设计在镜头范围之外。目前尚未处理。
+
+总而言之最后的效果如下图
+![最终效果](/media/images/blog/2026-08-17-infinite-background-parallax/最终效果图.gif)
