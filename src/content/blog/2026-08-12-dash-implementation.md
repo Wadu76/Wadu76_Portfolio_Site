@@ -1,10 +1,10 @@
 ---
 title: 全向冲刺的实现:dash 本体与三个特效
-date: 2026-08-12
+date: 2026-07-12
 category: unity
 ---
 
-`basic_movement` 是 Unity 2022.3 的 2D 平台跳跃 demo。这篇记录冲刺(dash)的完整实现:dash 本体,以及拉伸、残影、无敌三个特效。
+这篇记录冲刺(dash)的完整实现:dash 本体,以及拉伸、残影、无敌三个特效。
 
 ## 需求与设计
 
@@ -32,7 +32,7 @@ dashBlink = true     无敌期间是否闪烁
 
 dash 的移动逻辑留在 `PlayerController` 里,因为它在冲刺期间每物理帧接管 `rb.velocity` 和 `gravityScale`,和移动、重力判断强耦合、执行顺序敏感。残影则抽成独立组件 `GhostTrail`,通过 public 方法 `SpawnGhost()` 被控制器调用——它只负责"生成一个残影并淡出",和 dash 本体解耦。
 
-## 原理:协程是"计时指挥",FixedUpdate 是"干活的人"
+## 原理:协程来"计时指挥",FixedUpdate 来干活
 
 冲刺用了一个协程 `DashRoutine` 做生命周期管理,而真正推着角色动的是 `FixedUpdate`:
 
