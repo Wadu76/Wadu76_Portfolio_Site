@@ -32,7 +32,7 @@ dashBlink = true     无敌期间是否闪烁
 
 dash 的移动逻辑留在 `PlayerController` 里,因为它在冲刺期间每物理帧接管 `rb.velocity` 和 `gravityScale`,和移动、重力判断强耦合、执行顺序敏感。残影则抽成独立组件 `GhostTrail`,通过 public 方法 `SpawnGhost()` 被控制器调用——它只负责"生成一个残影并淡出",和 dash 本体解耦。
 
-## 原理:协程来"计时指挥",FixedUpdate 来干活
+## 原理
 
 冲刺用了一个协程 `DashRoutine` 做生命周期管理,而真正推着角色动的是 `FixedUpdate`:
 
@@ -211,19 +211,12 @@ IEnumerator BlinkRoutine()
 
 ## 遇到的问题
 
-### 1. 按下冲刺完全没反应:协程没被启动
 
-`DashRoutine()` 写好了,但调用它的 `StartCoroutine(...)` 那行被注释掉了。协程是"暂停、过会、接着跑"的任务,不启动它,`isDashing` 永远是 false,`FixedUpdate` 里所有 `if (isDashing)` 分支都不执行。**协程/方法定义了但没被调度,等于没写**——这和"生命周期回调里忘了调某个方法"是同一类错误。
+### 1. 冲刺动画"糊"、收尾发黏:过渡时长大于冲刺时长
 
-### 2. 编译报错:引用了还不存在的类型
+新建动画过渡默认 `Transition Duration = 0.25s`,而 `dashTime` 只有 0.18s——0.25s 的混合动画根本放不完,冲刺结束它还在从 Idle/Run 往 Dash 糊。改成 **`Has Exit Time` 关 + `Duration = 0`** 后,动画立即切换、干净利落。
 
-`PlayerController` 里写了 `private GhostTrail ghost;` 和 `GetComponent<GhostTrail>()`。C# 要求被引用的类型必须存在才能编译,所以必须先建好 `GhostTrail.cs`,再改控制器。**顺序 = 先建被依赖的小文件,再改引用它的文件。**
-
-### 3. 冲刺动画"糊"、收尾发黏:过渡时长大于冲刺时长
-
-新建动画过渡默认 `Transition Duration = 0.25s`,而 `dashTime` 只有 0.18s——0.25s 的混合动画根本放不完,冲刺结束它还在从 Idle/Run 往 Dash 糊。改成 **`Has Exit Time` 关 + `Duration = 0`** 后,动画立即切换、干净利落。2D 动作游戏的过渡几乎一律这么设。
-
-### 4. 冲刺期间不能跳
+### 2. 冲刺期间不能跳
 
 冲刺时如果还能起跳,会和速度全接管冲突。起跳判定里加了 `!isDashing`:
 
