@@ -1,5 +1,5 @@
 ---
-title: 全向冲刺的实现:dash 本体与三个特效
+title: 全向DASH(冲刺)的实现
 date: 2026-07-12
 category: unity
 ---
