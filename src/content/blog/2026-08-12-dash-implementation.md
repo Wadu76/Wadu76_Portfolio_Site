@@ -28,6 +28,9 @@ dashIFrame = 0.3     无敌时长
 dashBlink = true     无敌期间是否闪烁
 ```
 
+## 演示 
+dash效果视频如下
+<video controls src="/media/videos/DashVideo.mp4"></video>
 ## 结构决策:逻辑留在控制器,残影独立成组件
 
 dash 的移动逻辑留在 `PlayerController` 里,因为它在冲刺期间每物理帧接管 `rb.velocity` 和 `gravityScale`,和移动、重力判断强耦合、执行顺序敏感。残影则抽成独立组件 `GhostTrail`,通过 public 方法 `SpawnGhost()` 被控制器调用——它只负责"生成一个残影并淡出",和 dash 本体解耦。
