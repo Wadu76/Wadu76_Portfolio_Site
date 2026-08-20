@@ -5,6 +5,12 @@ category: unity
 ---
 
 这篇记录 2D 移动输入的一次重构:把左右移动的输入从轴输入(GetAxisRaw)改成"最后按下的键优先"(last-pressed-wins),解决转向时闪一帧 Idle 的问题。
+## 演示
+如下分别为解决方案在游戏内的具体体现和关键变量的变化过程，观察可知我们将转向时0这一状态彻底的抹去了。
+<video controls src="/media/videos/MovingFrames.mp4"></video>
+<video controls src="/media/videos/MovingFrameInInspector.mp4"></video>
+
+具体分析与实现请看下文。
 
 ## 问题:一直往右跑,突然按左,角色闪一帧 Idle
 

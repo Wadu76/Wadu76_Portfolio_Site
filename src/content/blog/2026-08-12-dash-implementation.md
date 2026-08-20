@@ -29,7 +29,7 @@ dashBlink = true     无敌期间是否闪烁
 ```
 
 ## 演示 
-dash效果视频如下
+dash效果视频如下，8个方向随意冲刺。
 <video controls src="/media/videos/DashVideo.mp4"></video>
 ## 结构决策:逻辑留在控制器,残影独立成组件
 

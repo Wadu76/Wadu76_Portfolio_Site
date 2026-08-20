@@ -5,6 +5,9 @@ category: 手感
 ---
 
 这篇记录可变跳跃高度(variable jump height)的实现——按得越久跳得越高,松开就剪短上升。
+## 演示
+演示视频如下，分别是短按空格长按空格和从高处自然落下。
+<video controls src="/media/videos/JumpingVideo.mp4"></video>
 
 ## 需求:为什么需要可变跳跃高度
 
