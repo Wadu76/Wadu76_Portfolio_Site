@@ -22,6 +22,7 @@ const blog = defineCollection({
     date: z.coerce.date().optional(),
     category: z.string().default('笔记'),
     cover: z.string().optional(),
+    reviewed: z.boolean().default(false),   // 是否已人工校对
   }),
 });
 
