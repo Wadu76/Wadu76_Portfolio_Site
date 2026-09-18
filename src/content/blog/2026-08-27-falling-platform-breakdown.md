@@ -29,19 +29,26 @@ reviewed: true
 
 **现象**:玩家"贴上平台瞬间就墙跳弹开"时,平台**偶尔不塌**。同样的操作,有时触发有时不触发——不稳定比不触发更糟。
 
-**根因**:`OnCollisionEnter2D` 是**事件回调**——物理引擎在特定物理步里把"接触发生"排队才调它。接触只持续一个物理帧(贴上瞬间又弹开)时,这个事件上报**有时被时序吞掉**。所以同样的极短接触,落在物理步边界上就漏报。
+**根因(第一层)**:`OnCollisionEnter2D` 是**事件回调**——物理引擎在特定物理步里把"接触发生"排队才调它。接触只持续一个物理帧(贴上瞬间又弹开)时,这个事件上报**有时被时序吞掉**。所以同样的极短接触,落在物理步边界上就漏报。
 
-**修法**:改用 **`col.IsTouching(playerCol)` 每帧实时查询**——每帧问"玩家现在接触吗",不依赖事件队列,瞬时接触也能抓住。Update 开头:
+**根因(第二层,后来才发现的)**:墙滑是靠**射线**判定"贴近墙"的,而进入墙滑后 `UpdateWallSlide` 每帧把水平速度置 0——玩家会**停在离墙一点缝隙的位置**,很可能**始终没有和墙的 collider 真正接触**。这种情况下碰撞事件**一次都不会触发**,竖直的坠落平台"怎么扒都不掉",跟"瞬间接触"其实没关系。
+
+**修法**:改用 **`Collider2D.Distance` 每帧实时查询**——它直接回答"两个 collider 隔多远"(接触 ≤ 0,有缝隙是正值),**语义和射线一致**,隔着缝隙贴墙的玩家也能被检测到。Update 开头:
 
 ```csharp
-if (state == State.Idle && playerCol != null && col.IsTouching(playerCol))
+if (state == State.Idle && playerCol != null)
 {
-    state = State.Delay;
-    timer = delayBeforeFall;
+    ColliderDistance2D d = col.Distance(playerCol);
+    if (d.isValid && d.distance < contactRange)   // 接触 或 足够近
+        StartFall();
 }
 ```
 
-**教训**:"事件回调(Enter/Exit)"和"实时查询(IsTouching/Overlap)"是两套语义。**回调适合"持续状态变化的通知",查询适合"我就要这一刻的接触事实"**。对"瞬间也要可靠"的检测,查询比回调稳。
+`OnCollisionEnter2D` 保留作补充(真撞上时立即触发);`contactRange` 在 Inspector 可调,默认 0.2。
+
+**教训**:"事件回调(Enter/Exit)"和"实时查询(Distance / IsTouching / Overlap)"是两套语义。**回调适合"持续状态变化的通知",查询适合"我就要这一刻的事实"**。
+
+更进一步:**当某个系统的判定方式变了(墙滑从"碰撞贴墙"改成"射线贴近"),所有依赖碰撞事件的子系统都会静默失效**——改手感的时候,要顺带检查一遍"还有谁假设玩家会撞上墙"。
 
 ### Lesson2:震动反馈把 collider 也震了，视觉和物理要分离
 
