@@ -1,6 +1,6 @@
 ---
 title: 死亡与重生(存档点)
-date: 2026-08-27
+date: 2026-08-21
 category: unity
 reviewed: true
 ---

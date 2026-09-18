@@ -1,6 +1,6 @@
 ---
 title: 拾取物重生导致背包重复
-date: 2026-09-16
+date: 2026-09-12
 category: unity
 ---
 
