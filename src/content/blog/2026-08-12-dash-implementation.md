@@ -31,7 +31,8 @@ dashBlink = true     无敌期间是否闪烁
 ## 演示 
 dash效果视频如下，8个方向随意冲刺。
 <video controls src="/media/videos/DashVideo.mp4"></video>
-## 结构决策:逻辑留在控制器,残影独立成组件
+
+## 结构
 
 dash 的移动逻辑留在 `PlayerController` 里,因为它在冲刺期间每物理帧接管 `rb.velocity` 和 `gravityScale`,和移动、重力判断强耦合、执行顺序敏感。残影则抽成独立组件 `GhostTrail`,通过 public 方法 `SpawnGhost()` 被控制器调用——它只负责"生成一个残影并淡出",和 dash 本体解耦。
 
@@ -212,14 +213,10 @@ IEnumerator BlinkRoutine()
 }
 ```
 
-## 遇到的问题
+## Lessons
 
 
-### 1. 冲刺动画"糊"、收尾发黏:过渡时长大于冲刺时长
-
-新建动画过渡默认 `Transition Duration = 0.25s`,而 `dashTime` 只有 0.18s——0.25s 的混合动画根本放不完,冲刺结束它还在从 Idle/Run 往 Dash 糊。改成 **`Has Exit Time` 关 + `Duration = 0`** 后,动画立即切换、干净利落。
-
-### 2. 冲刺期间不能跳
+### Lesson1 冲刺期间不能跳
 
 冲刺时如果还能起跳,会和速度全接管冲突。起跳判定里加了 `!isDashing`:
 
@@ -229,4 +226,4 @@ if (jumpBufferTimer > 0 && (isGrounded || coyoteTimer > 0f) && !isDashing)
 
 ## 小结
 
-冲刺的实现拆成两层:**协程管"开多久"**(isDashing / isInvincible 的生命周期),**FixedUpdate 管"怎么动"**(每帧全接管速度保证直线)。三个特效各自独立协程并行,参数全部暴露在 Inspector 方便调手感。过程中踩的坑——协程没启动、类型编译顺序、过渡时长大于冲刺时长——都是"写了但没接到调度"这类问题的变体,排查时优先检查调度链。
+冲刺的实现拆成两层:**协程管"开多久"**(isDashing / isInvincible 的生命周期),**FixedUpdate 管"怎么动"**(每帧全接管速度保证直线)。三个特效各自独立协程并行,参数全部暴露在 Inspector 方便调手感。
