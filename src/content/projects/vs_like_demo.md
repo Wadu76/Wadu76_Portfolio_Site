@@ -3,6 +3,7 @@ title: SwarmCutter
 subtitle: 十万单位同屏割草 Demo — Burst 并行物理 · 单 DrawCall 渲染
 date: 2026-07-31
 tech: [Unity, C#, DOTS, Burst, Job System, Unity.Mathematics, GPU Instancing, HLSL]
+video: /media/videos/swarmcutter.mp4
 featured: false
 ---
 
